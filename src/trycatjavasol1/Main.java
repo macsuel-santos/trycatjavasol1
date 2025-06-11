@@ -46,7 +46,7 @@ public class Main {
 			System.out.println(r);
 		}
 		
-		
+		System.out.println("fim do programa");
 		
 		
 		sc.close();
