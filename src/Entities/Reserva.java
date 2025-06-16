@@ -4,13 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import model.exceptions.DomainExceptions;
+
 public class Reserva {
 	private Integer quarto;
 	private LocalDate checkin;
 	private LocalDate checkout;
 	private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
-	public Reserva(Integer quarto, LocalDate checkin, LocalDate checkout) {
+	public Reserva(Integer quarto, LocalDate checkin, LocalDate checkout) throws DomainExceptions {
+		if(!checkout.isAfter(checkin)) {
+			throw new DomainExceptions("erro co antes do ci");
+		}
 		this.quarto = quarto;
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -35,21 +40,16 @@ public class Reserva {
 		return d;
 	}
 	
-	public String atualiza(LocalDate checkin, LocalDate checkout) {
+	public void atualiza(LocalDate checkin, LocalDate checkout) throws DomainExceptions{
 		
 		LocalDate i = LocalDate.now();
 		
 		if (checkin.isBefore(i) || checkout.isBefore(i)) {
-			return "data anterior a de hoje";
-		}
-		if(!checkout.isAfter(checkin)) {
-			return "erro co antes do ci";
+			throw new DomainExceptions("Data anterior a de hoje");
 		}
 		
 		this.checkin = checkin;
 		this.checkout = checkout;
-		
-		return null;
 		
 		
 	}

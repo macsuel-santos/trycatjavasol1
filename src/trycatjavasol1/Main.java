@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import Entities.Reserva;
+import model.exceptions.DomainExceptions;
 
 public class Main {
 
@@ -13,36 +14,36 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		int n = sc.nextInt();
-		Reserva r = new Reserva();
 		
-		LocalDate ci = LocalDate.parse(sc.next(), fmt);
-		LocalDate co = LocalDate.parse(sc.next(), fmt);
+		try {
+			int n = sc.nextInt();
 		
-		
-		if(!co.isAfter(ci)) {
-			System.out.println("erro co antes do ci");
-		}
-		else {
-			r = new Reserva(n, ci, co);
+			LocalDate ci = LocalDate.parse(sc.next(), fmt);
+			LocalDate co = LocalDate.parse(sc.next(), fmt);
+			
+			Reserva r = new Reserva(n, ci, co);
 			System.out.println(r);
-		}
-		
-		
-		ci = LocalDate.parse(sc.next(), fmt);
-		co = LocalDate.parse(sc.next(), fmt);
-		
-		String at = r.atualiza(ci, co);
-		
-		if (at != null) {
-			System.out.println(at);
-		}
-		else {
+			
+			
+			ci = LocalDate.parse(sc.next(), fmt);
+			co = LocalDate.parse(sc.next(), fmt);
+			
+			r.atualiza(ci, co);
+			
 			System.out.println(r);
+		
+			
+		}
+		
+		catch(DomainExceptions e) {
+			System.out.println(e.getMessage());
+		}
+		
+		catch(RuntimeException e) {
+			System.out.println("Erro inesperado");
 		}
 		
 		System.out.println("fim do programa");
-		
 		
 		sc.close();
 		
