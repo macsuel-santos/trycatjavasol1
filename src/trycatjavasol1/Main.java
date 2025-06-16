@@ -1,8 +1,7 @@
 package trycatjavasol1;
 
-import java.time.Instant;
+
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -33,16 +32,12 @@ public class Main {
 		ci = LocalDate.parse(sc.next(), fmt);
 		co = LocalDate.parse(sc.next(), fmt);
 		
-		LocalDate i = LocalDate.now();
+		String at = r.atualiza(ci, co);
 		
-		if (ci.isBefore(i) || ci.isBefore(i)) {
-			System.out.println("data anterior a de hoje");
-		}
-		else if(!co.isAfter(ci)) {
-			System.out.println("erro co antes do ci");
+		if (at != null) {
+			System.out.println(at);
 		}
 		else {
-			r.atualiza(ci, co);
 			System.out.println(r);
 		}
 		

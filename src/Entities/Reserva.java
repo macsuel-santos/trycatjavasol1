@@ -35,9 +35,23 @@ public class Reserva {
 		return d;
 	}
 	
-	public void atualiza(LocalDate checkin, LocalDate checkout) {
+	public String atualiza(LocalDate checkin, LocalDate checkout) {
+		
+		LocalDate i = LocalDate.now();
+		
+		if (checkin.isBefore(i) || checkout.isBefore(i)) {
+			return "data anterior a de hoje";
+		}
+		if(!checkout.isAfter(checkin)) {
+			return "erro co antes do ci";
+		}
+		
 		this.checkin = checkin;
 		this.checkout = checkout;
+		
+		return null;
+		
+		
 	}
 	
 	@Override
